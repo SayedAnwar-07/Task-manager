@@ -13,6 +13,7 @@ const TaskItem = ({ task }) => {
   const { setCurrentTask, setIsModalOpen, deleteTask, updateTask } =
     useContext(TaskContext);
   const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const formatTime = (date, time) => {
     if (!date && !time) return "No Due Time";
@@ -85,6 +86,7 @@ const TaskItem = ({ task }) => {
 
   const handleDelete = () => {
     deleteTask(task.id);
+    setIsDeleteModalOpen(false);
   };
 
   const renderStatusControls = () => {
@@ -178,12 +180,52 @@ const TaskItem = ({ task }) => {
           >
             <FiEdit2 />
           </button>
-          <button
-            onClick={handleDelete}
-            className="p-1 rounded text-gray-300 hover:text-white hover:bg-gray-700"
+
+          {/* Delete button with modal trigger */}
+          <label
+            htmlFor={`delete-modal-${task.id}`}
+            className="p-1 rounded text-gray-300 hover:text-white hover:bg-gray-700 cursor-pointer"
           >
             <FiTrash2 />
-          </button>
+          </label>
+        </div>
+      </div>
+
+      {/* Delete Confirmation Modal */}
+      <input
+        type="checkbox"
+        id={`delete-modal-${task.id}`}
+        className="modal-toggle"
+        checked={isDeleteModalOpen}
+        onChange={(e) => setIsDeleteModalOpen(e.target.checked)}
+      />
+      <div className="modal" role="dialog">
+        <div className="modal-box bg-gray-800 border border-gray-700">
+          <h3 className="text-lg font-bold text-white">Confirm Deletion</h3>
+          <p className="py-4 text-gray-300">
+            Are you sure you want to delete the task{" "}
+            <span className="font-bold">"{task.title}"</span> ? This action
+            cannot be undone.
+          </p>
+          <div className="modal-action">
+            <label
+              htmlFor={`delete-modal-${task.id}`}
+              className="btn btn-outline border-gray-600 hover:bg-gray-700 text-gray-300"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsDeleteModalOpen(false);
+              }}
+            >
+              Cancel
+            </label>
+            <label
+              htmlFor={`delete-modal-${task.id}`}
+              className="btn bg-red-600 hover:bg-red-700 border-red-600 text-white"
+              onClick={handleDelete}
+            >
+              Delete
+            </label>
+          </div>
         </div>
       </div>
     </section>
