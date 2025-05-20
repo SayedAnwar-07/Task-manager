@@ -1,5 +1,9 @@
 import { useContext } from "react";
-import { FaInbox, FaCalendarAlt, FaCalendarDay, FaList } from "react-icons/fa";
+import { FaList } from "react-icons/fa";
+import { RxLapTimer } from "react-icons/rx";
+import { AiOutlineStepBackward } from "react-icons/ai";
+import { MdOutlineSystemUpdateAlt } from "react-icons/md";
+import { TiWeatherWindyCloudy } from "react-icons/ti";
 import { TaskContext } from "../../context/TaskContext";
 import SidebarItem from "./SidebarItem";
 
@@ -8,9 +12,14 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   const mainItems = [
     { id: "all", label: "All Tasks", icon: <FaList /> },
-    { id: "today", label: "Today", icon: <FaCalendarDay /> },
-    { id: "upcoming", label: "Upcoming", icon: <FaCalendarAlt /> },
-    { id: "previous", label: "Previous", icon: <FaInbox /> },
+    { id: "today", label: "Today", icon: <RxLapTimer /> },
+    { id: "upcoming", label: "Upcoming", icon: <MdOutlineSystemUpdateAlt /> },
+    { id: "previous", label: "Previous", icon: <AiOutlineStepBackward /> },
+    {
+      id: "https://weatherapp-zephyr.netlify.app",
+      label: "Weather Report",
+      icon: <TiWeatherWindyCloudy />,
+    },
   ];
 
   return (
@@ -42,8 +51,12 @@ const Sidebar = ({ isOpen, onClose }) => {
               label={item.label}
               active={activeView === item.id}
               onClick={() => {
-                setActiveView(item.id);
-                onClose();
+                if (item.id.startsWith("http")) {
+                  window.open(item.id, "_blank");
+                } else {
+                  setActiveView(item.id);
+                  onClose();
+                }
               }}
             />
           ))}

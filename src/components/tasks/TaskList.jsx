@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import { FaClock, FaSpinner, FaCheck, FaTimes } from "react-icons/fa";
+import {  FaSpinner, FaCheck, FaTimes } from "react-icons/fa";
+import { IoTimerOutline } from "react-icons/io5";
 import { TaskContext } from "../../context/TaskContext";
 import TaskItem from "./TaskItem";
 import Sheet from "../ui/Sheet";
@@ -39,7 +40,7 @@ const TaskList = () => {
     {
       id: "pending",
       label: "Pending",
-      icon: <FaClock className="text-yellow-400" />,
+      icon: <IoTimerOutline className="text-yellow-400" />,
     },
     {
       id: "ongoing",

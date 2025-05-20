@@ -7,6 +7,7 @@ import {
   IoMdAlert,
   IoMdCloseCircleOutline,
 } from "react-icons/io";
+import { RiProgress7Line } from "react-icons/ri";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
 const TaskItem = ({ task }) => {
@@ -56,7 +57,7 @@ const TaskItem = ({ task }) => {
       case "pending":
         return <IoMdTime className="text-yellow-500" />;
       case "ongoing":
-        return <IoMdAlert className="text-blue-500" />;
+        return <RiProgress7Line className="text-blue-500" />;
       case "completed":
         return <IoMdCheckmarkCircleOutline className="text-green-500" />;
       case "cancelled":
